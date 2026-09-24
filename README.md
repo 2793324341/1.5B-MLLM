@@ -23,7 +23,8 @@
 ---
 
 🏗️ 系统架构（Architecture）
-```text
+
+
                                   ┌──────────────────────┐
                                   │      Qwen3-0.6B      │
                                   │      (Frozen)        │
@@ -53,11 +54,10 @@
                                    ▼
                         送入 Qwen3 计算 logits
 关键设计：视频与图像共用同一个 VisionProjector，不引入额外参数；三种模态的占位符 token 全部取自 Qwen3 词表自带的特殊 token，不需要扩展词表（无需 resize_token_embeddings）。
+   
 
 📂 项目结构（Project Structure）
 
-text
-复制
 1B/
 ├── mllm/                          # 核心代码包
 │   ├── __init__.py
@@ -88,6 +88,7 @@ text
 ├── index.html                     # 前端聊天界面
 ├── requirements.txt
 └── .gitignore
+
 
 🛠️ 快速开始（Quick Start）
 1. 环境准备
@@ -199,6 +200,7 @@ python scripts/inference.py --interactive
 6. 启动 Web 应用
 bash
 复制
+
 # 启动 FastAPI 后端（默认端口 8000）
 python server.py
 浏览器访问 http://127.0.0.1:8000，即可体验支持多模态文件上传的聊天界面。
@@ -209,7 +211,7 @@ GET /api/health — 服务与模型状态
 POST /api/chat — 对话接口（multipart/form-data，支持 prompt / image / audio / video / history）
 
 
-🔬 技术细节（Technical Details）
+# 🔬 技术细节（Technical Details）
 
 占位符替换机制
 文本中的 <image> / <audio> / <video> 会在 tokenize 之前被替换为 Qwen3 词表自带的特殊 token：
@@ -241,7 +243,7 @@ LayerNorm 的必要性
 训练投影层必须保持 fp32：torch.amp.GradScaler 不允许 unscale fp16 梯度。
 编码器、投影层、LLM 三者之间的 dtype/device 会在 forward 中自动对齐。
 
-📊 实测数据（Tested on RTX 4060 Laptop 8GB）
+# 📊 实测数据（Tested on RTX 4060 Laptop 8GB）
 
 项目	实测值
 总参数量	~1.5 B（Qwen3 596M + SigLIP 视觉塔 878M + Whisper 21M + 投影层 3.81M）
@@ -252,7 +254,7 @@ LayerNorm 的必要性
 训练速度	~1.3 秒/样本（bf16, batch 1, 2048 上下文）
 训练环境	Python 3.14.6 / torch 2.14.0+cu126 / transformers 5.17.0
 
-⚠️ 已知限制（Known Limitations）
+# ⚠️ 已知限制（Known Limitations）
 
 本项目经过完整的端到端验证（训练 + 断点续训 + 四模态推理 + Web 服务），但仍有以下限制，使用前请务必了解：
 
@@ -265,13 +267,13 @@ LayerNorm 的必要性
 Unsupported：图像生成、语音合成。本模型只做"多模态理解 → 输出文本"，没有任何生成模块（无 VAE / diffusion / TTS）。
 无 SFT / RLHF：模型只是"续写"，指令遵循能力不可靠。
 
-📄 开源协议
+# 📄 开源协议
 本项目代码采用 MIT License 开源。
 
 ⚠️ 请注意：仓库不包含任何预训练模型权重。Qwen3、SigLIP、Whisper 以及使用的公开数据集（COCO、AudioCaps、MSR-VTT 等）均遵循各自原有的许可协议，使用时请自行确认合规性。
 
 
-🙏 致谢
+# 🙏 致谢
 本项目站在以下开源工作的肩膀上：
 
 LLaVA — 投影层对齐范式
