@@ -24,7 +24,7 @@
 
 🏗️ 系统架构（Architecture）
 
-
+```text
                                   ┌──────────────────────┐
                                   │      Qwen3-0.6B      │
                                   │      (Frozen)        │
@@ -53,11 +53,14 @@
                                    │
                                    ▼
                         送入 Qwen3 计算 logits
+                       
 关键设计：视频与图像共用同一个 VisionProjector，不引入额外参数；三种模态的占位符 token 全部取自 Qwen3 词表自带的特殊 token，不需要扩展词表（无需 resize_token_embeddings）。
-   
+
+```text 
 
 📂 项目结构（Project Structure）
 
+```text
 1B/
 ├── mllm/                          # 核心代码包
 │   ├── __init__.py
@@ -88,7 +91,7 @@
 ├── index.html                     # 前端聊天界面
 ├── requirements.txt
 └── .gitignore
-
+```text 
 
 🛠️ 快速开始（Quick Start）
 1. 环境准备
