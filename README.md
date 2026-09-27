@@ -108,7 +108,7 @@ Loss 呈平滑下降并逐步趋于平台，未出现发散或过拟合。
 
 🛠️ 快速开始
 1. 环境准备
-git clone https://github.com/your-username/1.5B-MLLM.git
+git clone https://github.com/2793324341/1.5B-MLLM.git
 cd 1.5B-MLLM
 python -m venv .venv
 # Windows: .venv\Scripts\activate
