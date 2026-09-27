@@ -141,6 +141,7 @@ hf download openai/whisper-base --local-dir models/whisper-base
 bash
 复制
 python main.py
+
 3. 准备数据集
 bash
 复制
@@ -163,6 +164,7 @@ text	✅	文本，用 <image> / <audio> / <video> 标记媒体位置
 image_path	可选	相对 --image_root
 audio_path	可选	相对 --audio_root
 video_path	可选	相对 --video_root
+
 4. 训练投影层
 bash
 复制
@@ -197,9 +199,11 @@ bash
 复制
 python tools/monitor_train.py train.log              # ASCII 曲线 + 收敛判断
 python tools/monitor_train.py train.log --png curve.png
+
 5. 推理
 bash
 复制
+
 # 图像
 python scripts/inference.py --prompt "Describe this image" --image ./data/images/xxx.jpg
 
